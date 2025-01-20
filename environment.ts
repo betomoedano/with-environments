@@ -1,19 +1,30 @@
 type Environment = "development" | "preview" | "production";
 
 interface EnvironmentConfig {
-  apiUrl: string;
+  apiUrl: string | undefined;
 }
 
 const environments: Record<Environment, EnvironmentConfig> = {
   development: {
-    apiUrl: "http://localhost.api",
+    apiUrl: process.env.EXPO_PUBLIC_DEVELOPMENT_BASE_URL,
   },
   preview: {
-    apiUrl: "https://preview.api",
+    apiUrl: process.env.EXPO_PUBLIC_PREVIEW_BASE_URL,
   },
   production: {
-    apiUrl: "https://production.api",
+    apiUrl: process.env.EXPO_PUBLIC_PRODUCTION_BASE_URL,
   },
 };
 
-export const environment = environments[process.env.APP_ENV as Environment];
+const currentEnvironment =
+  (process.env.APP_ENV as Environment) || "development";
+
+if (!Object.keys(environments).includes(currentEnvironment)) {
+  throw new Error(
+    `Invalid environment: ${currentEnvironment}. Must be one of: ${Object.keys(
+      environments
+    ).join(", ")}`
+  );
+}
+
+export const environment = environments[currentEnvironment];
