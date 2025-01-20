@@ -1,3 +1,6 @@
+import Constants from "expo-constants";
+import * as Updates from "expo-updates";
+
 type Environment = "development" | "preview" | "production";
 
 interface EnvironmentConfig {
@@ -16,15 +19,19 @@ const environments: Record<Environment, EnvironmentConfig> = {
   },
 };
 
-const currentEnvironment =
-  (process.env.APP_ENV as Environment) || "development";
+let currentEnvironment: Environment = "development";
 
-if (!Object.keys(environments).includes(currentEnvironment)) {
-  throw new Error(
-    `Invalid environment: ${currentEnvironment}. Must be one of: ${Object.keys(
-      environments
-    ).join(", ")}`
-  );
+if (__DEV__) {
+  currentEnvironment = "development";
+} else if (Updates.channel === "preview") {
+  currentEnvironment = "preview";
+} else if (Updates.channel === "production") {
+  currentEnvironment = "production";
 }
 
-export const environment = environments[currentEnvironment];
+// Fallback to using Constants if Updates.channel is not set
+if (!Updates.channel && Constants.expoConfig?.extra?.environment) {
+  currentEnvironment = Constants.expoConfig.extra.environment as Environment;
+}
+
+export const environment: EnvironmentConfig = environments[currentEnvironment];

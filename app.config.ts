@@ -54,6 +54,7 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       eas: {
         projectId: EAS_PROJECT_ID,
       },
+      environment: process.env.APP_ENV || "development",
     },
   };
 };

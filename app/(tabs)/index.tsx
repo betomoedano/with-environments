@@ -20,10 +20,12 @@ export default function HomeScreen() {
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">
           Hello {environment?.apiUrl ?? "unknown"}
-          {process.env.APP_ENV}
         </ThemedText>
         <HelloWave />
       </ThemedView>
+      <ThemedText type="title">
+        App Environment: {process.env.APP_ENV ?? "unknown"}
+      </ThemedText>
     </ParallaxScrollView>
   );
 }
