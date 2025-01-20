@@ -17,12 +17,15 @@ export default ({ config }: ConfigContext): ExpoConfig => {
     newArchEnabled: true,
     ios: {
       supportsTablet: true,
+      bundleIdentifier: getDynamicAppConfig(process.env.APP_ENV)
+        .bundleIdentifier,
     },
     android: {
       adaptiveIcon: {
         foregroundImage: "./assets/images/adaptive-icon.png",
         backgroundColor: "#ffffff",
       },
+      package: getDynamicAppConfig(process.env.APP_ENV).package,
     },
     web: {
       bundler: "metro",
@@ -56,5 +59,28 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       },
       environment: process.env.APP_ENV || "development",
     },
+  };
+};
+
+export const getDynamicAppConfig = (
+  environment: "development" | "preview" | "production"
+) => {
+  if (environment === "development") {
+    return {
+      bundleIdentifier: "com.beto.app.dev",
+      package: "com.beto.app.dev",
+    };
+  }
+
+  if (environment === "preview") {
+    return {
+      bundleIdentifier: "com.beto.app.preview",
+      package: "com.beto.app.preview",
+    };
+  }
+
+  return {
+    bundleIdentifier: "com.beto.app.prod",
+    package: "com.beto.app.prod",
   };
 };

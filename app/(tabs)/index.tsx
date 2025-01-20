@@ -7,6 +7,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { environment } from "@/environment";
 
 export default function HomeScreen() {
+  console.log(process.env);
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
@@ -19,13 +20,10 @@ export default function HomeScreen() {
     >
       <ThemedView style={styles.titleContainer}>
         <ThemedText type="title">
-          Hello {environment?.apiUrl ?? "unknown"}
+          Hello {environment.apiUrl ?? "unknown"}
         </ThemedText>
         <HelloWave />
       </ThemedView>
-      <ThemedText type="title">
-        App Environment: {process.env.APP_ENV ?? "unknown"}
-      </ThemedText>
     </ParallaxScrollView>
   );
 }

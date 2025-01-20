@@ -1,7 +1,7 @@
 import Constants from "expo-constants";
 import * as Updates from "expo-updates";
 
-type Environment = "development" | "preview" | "production";
+export type Environment = "development" | "preview" | "production";
 
 interface EnvironmentConfig {
   apiUrl: string | undefined;
