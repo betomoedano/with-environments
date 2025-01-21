@@ -5,17 +5,21 @@ export type Environment = "development" | "preview" | "production";
 
 interface EnvironmentConfig {
   apiUrl: string | undefined;
+  environment: Environment;
 }
 
 const environments: Record<Environment, EnvironmentConfig> = {
   development: {
     apiUrl: process.env.EXPO_PUBLIC_DEVELOPMENT_BASE_URL,
+    environment: "development",
   },
   preview: {
     apiUrl: process.env.EXPO_PUBLIC_PREVIEW_BASE_URL,
+    environment: "preview",
   },
   production: {
     apiUrl: process.env.EXPO_PUBLIC_PRODUCTION_BASE_URL,
+    environment: "production",
   },
 };
 
