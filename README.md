@@ -6,13 +6,14 @@
 - Run eas env:pull development
 - Run eas build:configure
 
-# How to run in Preview
+## How to run in Preview
 
 - eas env:pull preview
 - bun prebuild:preview
 - bun run:ios:preview
 
-# How to run in Prod
+## How to run in Prod
 
 - eas env:pull production
-- bun run prod
+- bun prebuild:prod
+- bun run:ios:prod
