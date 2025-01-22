@@ -8,6 +8,7 @@ interface EnvironmentConfig {
   environment: Environment;
 }
 
+// Add values for your environment here
 const environments: Record<Environment, EnvironmentConfig> = {
   development: {
     apiUrl: process.env.EXPO_PUBLIC_DEVELOPMENT_BASE_URL,

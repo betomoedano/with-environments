@@ -1,17 +1,27 @@
 import { ConfigContext, ExpoConfig } from "expo/config";
 
-// Change this to your EAS project ID
-// Get it from https://expo.dev/accounts/[account]/projects/[project]
-const EAS_PROJECT_ID = "4a40e811-db03-4dfb-bc1d-c97b8edc5a78";
+// Replace these with your EAS project ID and project slug.
+// You can find them at https://expo.dev/accounts/[account]/projects/[project].
+const EAS_PROJECT_ID = "<YOUR_EAS_PROJECT_ID>";
+const PROJECT_SLUG = "<YOUR_PROJECT_SLUG>";
+const OWNER = "<YOUR_PROJECT_OWNER>";
+
+// App production config
+const APP_NAME = "Your App Name";
+const BUNDLE_IDENTIFIER = "com.yourcompany.yourappname";
+const PACKAGE_NAME = "com.yourcompany.yourappname";
+const ICON = "./assets/images/icons/iOS-Prod.png";
+const ADAPTIVE_ICON = "./assets/images/icons/Android-Prod.png";
+const SCHEME = "yourappname";
 
 export default ({ config }: ConfigContext): ExpoConfig => {
   const { name, bundleIdentifier, icon, adaptiveIcon, packageName, scheme } =
-    getDynamicAppConfig(process.env.APP_ENV);
+    getDynamicAppConfig(process.env.APP_ENV || "development");
 
   return {
     ...config,
     name: name,
-    slug: "with-envs", // must be the same for all environments
+    slug: PROJECT_SLUG, // Should be consistent across all environments.
     icon: icon,
     scheme: scheme,
     ios: {
@@ -37,40 +47,43 @@ export default ({ config }: ConfigContext): ExpoConfig => {
       },
       environment: process.env.APP_ENV || "development",
     },
+    owner: OWNER,
   };
 };
 
+// Dynamically configure the app based on the environment.
+// Update these placeholders with your actual values.
 export const getDynamicAppConfig = (
   environment: "development" | "preview" | "production"
 ) => {
   if (environment === "production") {
     return {
-      name: "App Prod",
-      bundleIdentifier: "com.beto.app.prod",
-      packageName: "com.beto.app.prod",
-      icon: "./assets/images/icons/iOS-Prod.png",
-      adaptiveIcon: "./assets/images/icons/Android-Prod.png",
-      scheme: "myapp-prod",
+      name: APP_NAME,
+      bundleIdentifier: BUNDLE_IDENTIFIER,
+      packageName: PACKAGE_NAME,
+      icon: ICON,
+      adaptiveIcon: ADAPTIVE_ICON,
+      scheme: SCHEME,
     };
   }
 
   if (environment === "preview") {
     return {
-      name: "App Preview",
-      bundleIdentifier: "com.beto.app.preview",
-      packageName: "com.beto.app.preview",
+      name: `${APP_NAME} Preview`,
+      bundleIdentifier: `${BUNDLE_IDENTIFIER}.preview`,
+      packageName: `${PACKAGE_NAME}.preview`,
       icon: "./assets/images/icons/iOS-Prev.png",
       adaptiveIcon: "./assets/images/icons/Android-Prev.png",
-      scheme: "myapp-prev",
+      scheme: `${SCHEME}-prev`,
     };
   }
 
   return {
-    name: "App Dev",
-    bundleIdentifier: "com.beto.app.dev",
-    packageName: "com.beto.app.dev",
+    name: `${APP_NAME} Development`,
+    bundleIdentifier: `${BUNDLE_IDENTIFIER}.dev`,
+    packageName: `${PACKAGE_NAME}.dev`,
     icon: "./assets/images/icons/iOS-Dev.png",
     adaptiveIcon: "./assets/images/icons/Android-Dev.png",
-    scheme: "myapp-dev",
+    scheme: `${SCHEME}-dev`,
   };
 };
