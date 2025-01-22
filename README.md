@@ -1,3 +1,11 @@
+## Getting Started
+
+Create a new project by running:
+
+```bash
+bun create expo-app --template with-envs
+```
+
 ## Setup
 
 1. Create a new EAS project at [Expo](https://expo.dev), and copy the project ID from your project settings.
@@ -60,7 +68,7 @@ eas build -p ios --profile preview
 eas update -p ios --environment preview --channel preview
 ```
 
-(The same process applies for production and development builds)
+Note: The same update process applies for production and development builds.
 
 3. For production releases:
    - Build only: `eas build -p ios`
