@@ -21,7 +21,11 @@ export default ({ config }: ConfigContext): ExpoConfig => {
   return {
     ...config,
     name: name,
+    version: "1.0.0",
     slug: PROJECT_SLUG, // Should be consistent across all environments.
+    orientation: "portrait",
+    userInterfaceStyle: "automatic",
+    newArchEnabled: true,
     icon: icon,
     scheme: scheme,
     ios: {
@@ -46,6 +50,26 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         projectId: EAS_PROJECT_ID,
       },
       environment: process.env.APP_ENV || "development",
+    },
+    web: {
+      bundler: "metro",
+      output: "static",
+      favicon: "./assets/images/favicon.png",
+    },
+    plugins: [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          image: "./assets/images/splash-icon.png",
+          imageWidth: 200,
+          resizeMode: "contain",
+          backgroundColor: "#ffffff",
+        },
+      ],
+    ],
+    experiments: {
+      typedRoutes: true,
     },
     owner: OWNER,
   };
