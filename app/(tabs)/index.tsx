@@ -11,7 +11,7 @@ import { useEffect } from "react";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { environment } from "@/environment";
+import { environment } from "@/utils/environment";
 import { Terminal } from "@/components/Terminal";
 import * as Application from "expo-application";
 

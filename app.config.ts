@@ -11,13 +11,9 @@ export default ({ config }: ConfigContext): ExpoConfig => {
   return {
     ...config,
     name: name,
-    slug: "with-envs",
-    version: "1.0.0",
-    orientation: "portrait",
+    slug: "with-envs", // must be the same for all environments
     icon: icon,
     scheme: scheme,
-    userInterfaceStyle: "automatic",
-    newArchEnabled: true,
     ios: {
       supportsTablet: true,
       bundleIdentifier: bundleIdentifier,
@@ -28,26 +24,6 @@ export default ({ config }: ConfigContext): ExpoConfig => {
         backgroundColor: "#ffffff",
       },
       package: packageName,
-    },
-    web: {
-      bundler: "metro",
-      output: "static",
-      favicon: "./assets/images/favicon.png",
-    },
-    plugins: [
-      "expo-router",
-      [
-        "expo-splash-screen",
-        {
-          image: "./assets/images/splash-icon.png",
-          imageWidth: 200,
-          resizeMode: "contain",
-          backgroundColor: "#ffffff",
-        },
-      ],
-    ],
-    experiments: {
-      typedRoutes: true,
     },
     updates: {
       url: `https://u.expo.dev/${EAS_PROJECT_ID}`,
@@ -67,14 +43,14 @@ export default ({ config }: ConfigContext): ExpoConfig => {
 export const getDynamicAppConfig = (
   environment: "development" | "preview" | "production"
 ) => {
-  if (environment === "development") {
+  if (environment === "production") {
     return {
-      name: "App Dev",
-      bundleIdentifier: "com.beto.app.dev",
-      packageName: "com.beto.app.dev",
-      icon: "./assets/images/icons/iOS-Dev.png",
-      adaptiveIcon: "./assets/images/icons/Android-Dev.png",
-      scheme: "myapp-dev",
+      name: "App Prod",
+      bundleIdentifier: "com.beto.app.prod",
+      packageName: "com.beto.app.prod",
+      icon: "./assets/images/icons/iOS-Prod.png",
+      adaptiveIcon: "./assets/images/icons/Android-Prod.png",
+      scheme: "myapp-prod",
     };
   }
 
@@ -90,11 +66,11 @@ export const getDynamicAppConfig = (
   }
 
   return {
-    name: "App Prod",
-    bundleIdentifier: "com.beto.app.prod",
-    packageName: "com.beto.app.prod",
-    icon: "./assets/images/icons/iOS-Prod.png",
-    adaptiveIcon: "./assets/images/icons/Android-Prod.png",
-    scheme: "myapp-prod",
+    name: "App Dev",
+    bundleIdentifier: "com.beto.app.dev",
+    packageName: "com.beto.app.dev",
+    icon: "./assets/images/icons/iOS-Dev.png",
+    adaptiveIcon: "./assets/images/icons/Android-Dev.png",
+    scheme: "myapp-dev",
   };
 };
