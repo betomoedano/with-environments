@@ -11,7 +11,14 @@ bun create expo-app --template with-envs
 1. Create a new EAS project at [Expo](https://expo.dev), and copy the project ID from your project settings.
    <img width="951" alt="Screenshot 2025-01-22 at 3 54 27 PM" src="https://github.com/user-attachments/assets/35fb62be-dee0-4ee8-acb1-0fd85ef82ceb" />
 
-2. Update the following constants in `app.config.ts`:
+2. Configure environment variables in your EAS project:
+
+- Set `APP_ENV` to `development`, `preview`, or `production` based on the environment.
+- Set three `EXPO_PUBLIC_API_URL` based on the environment. (Add more envs if you need)
+- Add any additional required environment variables. Check `utils/environment.ts` for the full list.
+  ![image](https://github.com/user-attachments/assets/13edbebc-c2a3-49d4-aa90-c5d4d5d105ae)
+
+3. Update the following constants in `app.config.ts`:
    - Set `EAS_PROJECT_ID` to your Expo project ID.
    - Set `PROJECT_SLUG` to your project slug.
    - Set `OWNER` to your Expo account name.
@@ -19,10 +26,10 @@ bun create expo-app --template with-envs
 You can find these values in your project details:
 <img width="947" alt="Screenshot 2025-01-22 at 3 56 05 PM" src="https://github.com/user-attachments/assets/e8e17cef-8cbb-4d25-b09a-d861d08b6b2c" />
 
-3. Customize the app configuration in `app.config.ts`:
+4. Customize the app configuration in `app.config.ts`:
    - Update the app name, package names, and bundle identifiers.
    - Configure icons and schemes for each environment.
-4. Add `/android` and `/ios` to your `.gitignore`.
+5. Add `/android` and `/ios` to your `.gitignore`.
 
 ## Development Setup
 
