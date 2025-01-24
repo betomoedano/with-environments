@@ -2,27 +2,30 @@ import { ConfigContext, ExpoConfig } from "expo/config";
 
 // Replace these with your EAS project ID and project slug.
 // You can find them at https://expo.dev/accounts/[account]/projects/[project].
-const EAS_PROJECT_ID = "<YOUR_EAS_PROJECT_ID>";
-const PROJECT_SLUG = "<YOUR_PROJECT_SLUG>";
-const OWNER = "<YOUR_PROJECT_OWNER>";
+const EAS_PROJECT_ID = "4a40e811-db03-4dfb-bc1d-c97b8edc5a78";
+const PROJECT_SLUG = "with-envs";
+const OWNER = "betoatexpo";
 
 // App production config
-const APP_NAME = "Your App Name";
-const BUNDLE_IDENTIFIER = "com.yourcompany.yourappname";
-const PACKAGE_NAME = "com.yourcompany.yourappname";
+const APP_NAME = "App Name";
+const BUNDLE_IDENTIFIER = "com.company.appname";
+const PACKAGE_NAME = "com.company.appname";
 const ICON = "./assets/images/icons/iOS-Prod.png";
 const ADAPTIVE_ICON = "./assets/images/icons/Android-Prod.png";
-const SCHEME = "yourappname";
+const SCHEME = "app-scheme";
 
 export default ({ config }: ConfigContext): ExpoConfig => {
   const { name, bundleIdentifier, icon, adaptiveIcon, packageName, scheme } =
-    getDynamicAppConfig(process.env.APP_ENV || "development");
+    getDynamicAppConfig(
+      (process.env.APP_ENV as "development" | "preview" | "production") ||
+        "development"
+    );
 
   return {
     ...config,
     name: name,
     version: "1.0.0",
-    slug: PROJECT_SLUG, // Should be consistent across all environments.
+    slug: PROJECT_SLUG, // Must be consistent across all environments.
     orientation: "portrait",
     userInterfaceStyle: "automatic",
     newArchEnabled: true,

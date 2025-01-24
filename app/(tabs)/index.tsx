@@ -11,7 +11,6 @@ import { useEffect } from "react";
 
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { environment } from "@/utils/environment";
 import { Terminal } from "@/components/Terminal";
 import * as Application from "expo-application";
 
@@ -63,26 +62,8 @@ export default function HomeScreen() {
               ]}
               numberOfLines={1}
             >
-              {environment.apiUrl ?? "unknown"}
+              {process.env.EXPO_PUBLIC_API_URL ?? "unknown"}
             </ThemedText>
-          </ThemedView>
-
-          <ThemedView style={styles.envRow}>
-            <ThemedText
-              style={[styles.terminalText, { color: isDark ? "#fff" : "#000" }]}
-            >
-              $ ENV=
-            </ThemedText>
-            <ThemedView style={[styles.badge, styles[environment.environment]]}>
-              <ThemedText
-                style={[
-                  styles.badgeText,
-                  { color: "#fff", fontWeight: "bold" },
-                ]}
-              >
-                {environment.environment}
-              </ThemedText>
-            </ThemedView>
           </ThemedView>
         </Terminal>
 
@@ -294,15 +275,6 @@ const styles = StyleSheet.create({
   },
   badgeText: {
     fontSize: 14,
-  },
-  development: {
-    backgroundColor: "#4CAF50",
-  },
-  preview: {
-    backgroundColor: "#FF9800",
-  },
-  production: {
-    backgroundColor: "#F44336",
   },
   updateButton: {
     padding: 12,
